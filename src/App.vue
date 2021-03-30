@@ -1,5 +1,5 @@
 <template>
-	<div id="nav">
+	<div id="nav" class="text-white sticky-lg-top">
 		<router-link to="/">Home</router-link> | <router-link to="/events">Events</router-link> |
 		<router-link to="/volunteers">Volunteers</router-link>
 	</div>
@@ -8,13 +8,10 @@
 
 <style lang="scss">
 body {
-	background-image: url("./assets/Stars.jpg");
-	background-size: cover;
-	margin: 0;
-	max-width: 100%;
-	overflow-x: hidden;
-	position: relative;
-	display: block;
+	&::-webkit-scrollbar {
+		width: 0;
+	}
+	background: url("./assets/Stars.jpg") no-repeat center center fixed;
 }
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -31,7 +28,6 @@ body {
 	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
 	background: rgba(180, 180, 180, 0.3);
 	filter: blur;
-
 	a {
 		font-weight: bold;
 		color: #e7c144;
