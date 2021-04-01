@@ -9,7 +9,7 @@
 		<ul class="list-group m-2">
 			<li class="list-group-item list-group-item-dark">
 				{{
-					new Date(eventInfo["Time"]).toLocaleString("en-UK", {
+					new Date(eventInfo["Time"]).toLocaleString("en-AU", {
 						year: "numeric",
 						day: "2-digit",
 						month: "2-digit",

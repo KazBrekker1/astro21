@@ -1,6 +1,7 @@
 <template>
 	<div class="events">
 		<Event v-for="event in eventsInfo" :key="event['id']" :eventInfo="event" />
+		<EventForm />
 		<div class="addNew">
 			<button class="btn btn-success p-3">Add</button>
 		</div>
@@ -9,6 +10,7 @@
 
 <script>
 import Event from "@/components/Event.vue"
+import EventForm from "@/components/EventForm.vue"
 import { ref } from "vue"
 import { eventInfo } from "../assets/mockData/events.js"
 export default {
@@ -17,7 +19,7 @@ export default {
 		const eventsInfo = ref(eventInfo)
 		return { eventsInfo }
 	},
-	components: { Event },
+	components: { Event, EventForm },
 }
 </script>
 
