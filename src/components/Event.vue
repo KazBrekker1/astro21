@@ -22,16 +22,25 @@
 		</ul>
 		<div class="card-footer p-3 shadow-sm">
 			<button type="button" class="btn btn-warning">Edit</button>
-			<button type="button" class="btn btn-danger">Delete</button>
+			<button type="button" class="btn btn-danger" @click="removeEvent">Delete</button>
 		</div>
 	</div>
 </template>
 
 <script>
+import { useStore } from "vuex"
 export default {
 	name: "Event",
 	props: {
 		eventInfo: Object,
+	},
+	setup(props) {
+		const store = useStore()
+		const removeEvent = () => {
+			let conf = confirm(`Delete ${props.eventInfo.name}`)
+			conf ? store.dispatch("removeEvent", props.eventInfo.id) : null
+		}
+		return { removeEvent }
 	},
 }
 </script>

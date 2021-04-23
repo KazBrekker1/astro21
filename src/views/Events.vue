@@ -16,6 +16,7 @@ import { useStore, mapState } from "vuex"
 import { eventsInfo } from "../assets/mockData/events.js"
 export default {
 	name: "Events",
+	components: { Event, EventForm },
 	setup() {
 		const store = useStore()
 		store.dispatch("setEvents", eventsInfo)
@@ -30,7 +31,6 @@ export default {
 	computed: {
 		...mapState(["events"]),
 	},
-	components: { Event, EventForm },
 }
 </script>
 

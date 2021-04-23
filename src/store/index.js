@@ -10,7 +10,9 @@ export default createStore({
 		},
 		ADD_EVENT(state, val) {
 			state.events.push(val)
-			console.log(val)
+		},
+		REMOVE_EVENT(state, eventId) {
+			state.events = state.events.filter((e) => e.id != eventId)
 		},
 	},
 	actions: {
@@ -19,6 +21,9 @@ export default createStore({
 		},
 		addEvent({ state, commit }, event) {
 			commit("ADD_EVENT", event)
+		},
+		removeEvent({ state, commit }, eventId) {
+			commit("REMOVE_EVENT", eventId)
 		},
 	},
 })
