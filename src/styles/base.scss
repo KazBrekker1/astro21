@@ -1,2 +1,8 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
+input:required {
+	box-shadow: none;
+}
+// input:invalid {
+// 	box-shadow: 0 0 3px red;
+// }

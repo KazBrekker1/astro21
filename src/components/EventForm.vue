@@ -29,26 +29,37 @@
 		</ul>
 		<div class="card-footer p-3 shadow-sm">
 			<button type="submit" class="btn btn-success">Submit</button>
-			<button type="button" class="btn btn-danger">Cancle</button>
+			<button type="button" class="btn btn-danger" @click="cancelForm">Cancle</button>
 		</div>
 	</form>
 </template>
 
 <script>
 import { reactive, toRefs } from "vue"
+import { useStore } from "vuex"
 export default {
 	name: "EventForm",
-	setup() {
-		const state = reactive({
+	setup(props, { emit }) {
+		const store = useStore()
+		const eventState = reactive({
 			required: true,
 			name: "",
 			description: "",
 			time: "",
 		})
 		const submitEvent = () => {
-			console.log(`Hello There ${state.time} ${state.name}!`)
+			store.dispatch("addEvent", {
+				id: store.state.events.length,
+				name: eventState.name,
+				time: eventState.time,
+				description: eventState.description,
+			})
+			emit("exitForm")
 		}
-		return { submitEvent, ...toRefs(state) }
+		const cancelForm = () => {
+			emit("exitForm")
+		}
+		return { submitEvent, ...toRefs(eventState), cancelForm }
 	},
 }
 </script>
@@ -60,7 +71,7 @@ export default {
 		margin: 5px;
 	}
 	::placeholder {
-		color: cadetblue;
+		color: rgb(152, 184, 170);
 	}
 }
 </style>

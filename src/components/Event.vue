@@ -9,7 +9,7 @@
 		<ul class="list-group m-2">
 			<li class="list-group-item list-group-item-dark">
 				{{
-					new Date(eventInfo["Time"]).toLocaleString("en-AU", {
+					new Date(eventInfo["time"]).toLocaleString("en-AU", {
 						year: "numeric",
 						day: "2-digit",
 						month: "2-digit",
@@ -21,8 +21,8 @@
 			</li>
 		</ul>
 		<div class="card-footer p-3 shadow-sm">
-			<button type="button" class="btn btn-info">View</button>
 			<button type="button" class="btn btn-warning">Edit</button>
+			<button type="button" class="btn btn-danger">Delete</button>
 		</div>
 	</div>
 </template>
