@@ -42,7 +42,6 @@ export default {
 	setup(props, { emit }) {
 		const store = useStore()
 		const eventState = reactive({
-			required: true,
 			name: "",
 			description: "",
 			time: "",
