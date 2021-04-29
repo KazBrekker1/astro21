@@ -11,7 +11,7 @@
 <script>
 import Event from "@/components/Event.vue"
 import EventForm from "@/components/EventForm.vue"
-import { ref, reactive } from "vue"
+import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
 import { eventsInfo } from "../assets/mockData/events.js"
 export default {
