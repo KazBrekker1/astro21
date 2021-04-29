@@ -1,6 +1,6 @@
 <template>
 	<div id="nav" class="text-white sticky-lg-top">
-		<router-link to="/">Home</router-link> | <router-link to="/events">Events</router-link> |
+		<router-link to="/">Visitors</router-link> | <router-link to="/events">Events</router-link> |
 		<router-link to="/volunteers">Volunteers</router-link>
 	</div>
 	<router-view />
