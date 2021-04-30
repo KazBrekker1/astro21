@@ -29,12 +29,10 @@ export default {
 
 		const downloadVolunteersData = () => {
 			let csv
-
 			// Loop the array of objects
 			for (let row = 0; row < store.state.volunteers.length; row++) {
 				let keysAmount = Object.keys(store.state.volunteers[row]).length
 				let keysCounter = 0
-
 				// If this is the first row, generate the headings
 				if (row === 0) {
 					// Loop each property of the object

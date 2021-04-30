@@ -4,6 +4,7 @@ export default createStore({
 	state: {
 		events: [],
 		volunteers: [],
+		visitors: [],
 	},
 	mutations: {
 		SET_EVENTS(state, val) {
@@ -24,6 +25,19 @@ export default createStore({
 		REMOVE_VOLUNTEER(state, volunteerId) {
 			state.volunteers = state.volunteers.filter((vol) => vol.id != volunteerId)
 		},
+		SET_VISITORS(state, val) {
+			state.visitors = val
+		},
+		ADD_VISITOR(state, val) {
+			state.visitors.push(val)
+		},
+		REMOVE_VISITOR(state, visitorId) {
+			state.visitors = state.visitors.filter((vis) => vis.id != visitorId)
+		},
+		ARRIVE_VISITOR(state, visitorId) {
+			let visitorIdx = state.visitors.findIndex((vis) => vis.id == visitorId)
+			state.visitors[visitorIdx].arrived = !state.visitors[visitorIdx].arrived
+		},
 	},
 	actions: {
 		setEvents({ state, commit }, events) {
@@ -43,6 +57,24 @@ export default createStore({
 		},
 		removeVolunteer({ state, commit }, volunteerId) {
 			commit("REMOVE_VOLUNTEER", volunteerId)
+		},
+		setVisitors({ state, commit }, visitors) {
+			commit("SET_VISITORS", visitors)
+		},
+		addVisitor({ state, commit }, visitor) {
+			commit("ADD_VISITOR", visitor)
+		},
+		removeVisitor({ state, commit }, visitorId) {
+			commit("REMOVE_VISITOR", visitorId)
+		},
+		visitorArrived({ state, commit }, visitorId) {
+			commit("ARRIVE_VISITOR", visitorId)
+			commit(
+				"SET_VISITORS",
+				state.visitors.sort((x, y) => {
+					return x.arrived - y.arrived
+				})
+			)
 		},
 	},
 })
