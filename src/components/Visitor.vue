@@ -6,7 +6,7 @@
 				{{ visitorInfo["email"] }}
 			</p>
 			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ visitorInfo["arrived"] }}
+				{{ visitorInfo["age"] }}
 			</p>
 		</div>
 		<ul class="list-group m-2"></ul>
@@ -45,12 +45,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss">
-.card {
-	margin: 2rem;
-	button {
-		margin: 5px;
-	}
-}
-</style>

@@ -37,12 +37,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss">
-.card {
-	margin: 2rem;
-	button {
-		margin: 5px;
-	}
-}
-</style>

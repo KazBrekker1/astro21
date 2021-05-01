@@ -19,6 +19,16 @@
 					required
 				/>
 			</li>
+			<li class="list-group-item list-group-item-dark p-1 m-1">
+				<input
+					v-model="age"
+					type="number"
+					min="0"
+					max="99"
+					class="bg-transparent text-center border-0 w-100 h5"
+					required
+				/>
+			</li>
 		</ul>
 		<div class="card-footer p-2 shadow-sm">
 			<button type="submit" class="btn btn-success">Submit</button>
@@ -37,6 +47,7 @@ export default {
 		const visitorState = reactive({
 			name: "",
 			email: "",
+			age: 0,
 			arrived: false,
 		})
 		const submitVisitor = () => {
@@ -44,6 +55,7 @@ export default {
 				id: store.state.visitors.length,
 				name: visitorState.name,
 				email: visitorState.email,
+				age: visitorState.age,
 				arrived: visitorState.arrived,
 			})
 			cancelForm()
@@ -55,15 +67,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss">
-.card {
-	margin: 2rem;
-	button {
-		margin: 5px;
-	}
-	::placeholder {
-		color: rgb(152, 184, 170);
-	}
-}
-</style>

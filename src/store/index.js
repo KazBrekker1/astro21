@@ -20,7 +20,7 @@ export default createStore({
 			state.volunteers = val
 		},
 		ADD_VOLUNTEER(state, val) {
-			state.volunteers.push(val)
+			state.volunteers.unshift(val)
 		},
 		REMOVE_VOLUNTEER(state, volunteerId) {
 			state.volunteers = state.volunteers.filter((vol) => vol.id != volunteerId)
@@ -60,9 +60,21 @@ export default createStore({
 		},
 		setVisitors({ state, commit }, visitors) {
 			commit("SET_VISITORS", visitors)
+			commit(
+				"SET_VISITORS",
+				state.visitors.sort((x, y) => {
+					return x.arrived - y.arrived
+				})
+			)
 		},
 		addVisitor({ state, commit }, visitor) {
 			commit("ADD_VISITOR", visitor)
+			commit(
+				"SET_VISITORS",
+				state.visitors.sort((x, y) => {
+					return x.arrived - y.arrived
+				})
+			)
 		},
 		removeVisitor({ state, commit }, visitorId) {
 			commit("REMOVE_VISITOR", visitorId)

@@ -75,15 +75,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss">
-.card {
-	margin: 2rem;
-	button {
-		margin: 5px;
-	}
-	::placeholder {
-		color: rgb(152, 184, 170);
-	}
-}
-</style>
