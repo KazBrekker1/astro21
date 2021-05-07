@@ -2,8 +2,11 @@
 	<div class="events">
 		<Event v-for="event in events" :key="event['id']" :eventInfo="event" />
 		<EventForm v-if="state.formVisible" @exitForm="toggleForm" />
-		<div v-if="!state.formVisible" class="addNew">
+		<EventsCalendar v-if="state.calendarVisible" @exitCalendar="toggleCalendar" />
+		<div v-if="!state.formVisible && !state.calendarVisible" class="addNew">
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
+			<button class="btn btn-primary p-3" @click="downloadEventsData">Download</button>
+			<button class="btn btn-warning p-3" @click="toggleCalendar">Show Events</button>
 		</div>
 	</div>
 </template>
@@ -11,20 +14,25 @@
 <script>
 import Event from "@/components/Event.vue"
 import EventForm from "@/components/EventForm.vue"
+import EventsCalendar from "@/components/EventsCalendar.vue"
 import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
 import { eventsInfo } from "../assets/mockData/events.js"
 export default {
 	name: "Events",
-	components: { Event, EventForm },
+	components: { Event, EventForm, EventsCalendar },
 	setup() {
 		const store = useStore()
 		store.dispatch("setEvents", eventsInfo)
 		const state = reactive({
 			formVisible: false,
+			calendarVisible: false,
 		})
 		const toggleForm = () => {
 			state.formVisible = !state.formVisible
+		}
+		const toggleCalendar = () => {
+			state.calendarVisible = !state.calendarVisible
 		}
 
 		const downloadEventsData = () => {
@@ -63,7 +71,7 @@ export default {
 			document.querySelector("#download_events-csv").click()
 		}
 
-		return { state, toggleForm }
+		return { state, toggleForm, toggleCalendar, downloadEventsData }
 	},
 	computed: {
 		...mapState(["events"]),

@@ -25,7 +25,7 @@ export const eventsInfo = [
 	},
 	{
 		id: 4,
-		name: "Got Home",
+		name: "Go Home",
 		time: "12-sep-2021 19:30",
 		description: "Pack Up!",
 	},
