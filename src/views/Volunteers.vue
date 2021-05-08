@@ -4,6 +4,7 @@
 		<VolunteerForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<div v-if="!state.formVisible" class="addNew">
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
+			<button class="btn btn-primary p-3" @click="downloadVolunteersData">Download</button>
 		</div>
 	</div>
 </template>
@@ -13,7 +14,6 @@ import Volunteer from "@/components/Volunteer.vue"
 import VolunteerForm from "@/components/VolunteerForm.vue"
 import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
-import { volunteersInfo } from "../assets/mockData/volunteers.js"
 import * as fb from "../../Firebase"
 
 export default {
@@ -21,12 +21,12 @@ export default {
 	components: { Volunteer, VolunteerForm },
 	setup() {
 		const store = useStore()
-		// store.dispatch("setVolunteers", volunteersInfo)
+		let volunteersArray
 		fb.volunteersCollection
 			.where("userId", "==", fb.auth.currentUser.uid)
-			// .orderBy("createdOn", "desc")
+			.orderBy("createdOn", "desc")
 			.onSnapshot((snapshot) => {
-				let volunteersArray = []
+				volunteersArray = []
 				snapshot.forEach((doc) => {
 					let volunteer = doc.data()
 					volunteer.id = doc.id
@@ -42,29 +42,15 @@ export default {
 		}
 
 		const downloadVolunteersData = () => {
-			let csv
-			// Loop the array of objects
-			for (let row = 0; row < store.state.volunteers.length; row++) {
-				let keysAmount = Object.keys(store.state.volunteers[row]).length
-				let keysCounter = 0
-				// If this is the first row, generate the headings
-				if (row === 0) {
-					// Loop each property of the object
-					for (let key in store.state.volunteers[row]) {
-						// This is to not add a comma at the last cell
-						// The '\r\n' adds a new line
-						csv += key + (keysCounter + 1 < keysAmount ? "," : "\r\n")
-						keysCounter++
-					}
-				} else {
-					for (let key in store.state.volunteers[row]) {
-						csv += store.state.volunteers[row][key] + (keysCounter + 1 < keysAmount ? "," : "\r\n")
-						keysCounter++
-					}
-				}
+			let keys = Object.keys(store.state.volunteers[0])
+			keys = keys.filter((k) => k != "createdOn" && k != "id" && k != "userId")
+			// Build header
+			let csv = keys.join(",") + "\n"
 
-				keysCounter = 0
-			}
+			// Add the rows
+			store.state.volunteers.forEach((obj) => {
+				csv += keys.map((k) => obj[k]).join(",") + "\n"
+			})
 
 			// Once we are done looping, download the .csv by creating a link
 			let link = document.createElement("a")
@@ -74,7 +60,7 @@ export default {
 			document.body.appendChild(link)
 			document.querySelector("#download_volunteers-csv").click()
 		}
-		return { state, toggleForm }
+		return { state, toggleForm, downloadVolunteersData }
 	},
 	computed: {
 		...mapState(["volunteers"]),

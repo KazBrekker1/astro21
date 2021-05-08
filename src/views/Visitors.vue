@@ -4,6 +4,7 @@
 		<VisitorForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<div v-if="!state.formVisible" class="addNew">
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
+			<button class="btn btn-primary p-3" @click="downloadVisitorsData">Download</button>
 		</div>
 	</div>
 </template>
@@ -13,7 +14,6 @@ import Visitor from "@/components/Visitor.vue"
 import VisitorForm from "@/components/VisitorForm.vue"
 import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
-import { visitorsInfo } from "../assets/mockData/visitors.js"
 import * as fb from "../../Firebase"
 
 export default {
@@ -24,47 +24,30 @@ export default {
 		const state = reactive({
 			formVisible: false,
 		})
-		// store.dispatch("setVisitors", visitorsInfo)
-		fb.visitorsCollection
-			.where("userId", "==", fb.auth.currentUser.uid)
-			// .orderBy("createdOn", "desc")
-			.onSnapshot((snapshot) => {
-				let visitorsArray = []
-				snapshot.forEach((doc) => {
-					let visitor = doc.data()
-					visitor.id = doc.id
-					visitorsArray.unshift(visitor) // Temporary
-				})
-				store.dispatch("setVisitors", visitorsArray)
+		let visitorsArray
+		fb.visitorsCollection.where("userId", "==", fb.auth.currentUser.uid).onSnapshot((snapshot) => {
+			visitorsArray = []
+			snapshot.forEach((doc) => {
+				let visitor = doc.data()
+				visitor.id = doc.id
+				visitorsArray.unshift(visitor) // Temporary
 			})
+			store.dispatch("setVisitors", visitorsArray)
+		})
 		const toggleForm = () => {
 			state.formVisible = !state.formVisible
 		}
 
 		const downloadVisitorsData = () => {
-			let csv
-			// Loop the array of objects
-			for (let row = 0; row < store.state.visitors.length; row++) {
-				let keysAmount = Object.keys(store.state.visitors[row]).length
-				let keysCounter = 0
-				// If this is the first row, generate the headings
-				if (row === 0) {
-					// Loop each property of the object
-					for (let key in store.state.visitors[row]) {
-						// This is to not add a comma at the last cell
-						// The '\r\n' adds a new line
-						csv += key + (keysCounter + 1 < keysAmount ? "," : "\r\n")
-						keysCounter++
-					}
-				} else {
-					for (let key in store.state.visitors[row]) {
-						csv += store.state.visitors[row][key] + (keysCounter + 1 < keysAmount ? "," : "\r\n")
-						keysCounter++
-					}
-				}
+			let keys = Object.keys(store.state.visitors[0])
+			keys = keys.filter((k) => k != "createdOn" && k != "id" && k != "userId")
+			// Build header
+			let csv = keys.join(",") + "\n"
 
-				keysCounter = 0
-			}
+			// Add the rows
+			store.state.visitors.forEach((obj) => {
+				csv += keys.map((k) => obj[k]).join(",") + "\n"
+			})
 
 			// Once we are done looping, download the .csv by creating a link
 			let link = document.createElement("a")
@@ -74,7 +57,7 @@ export default {
 			document.body.appendChild(link)
 			document.querySelector("#download_visitors-csv").click()
 		}
-		return { state, toggleForm }
+		return { state, toggleForm, downloadVisitorsData }
 	},
 	computed: {
 		...mapState(["visitors"]),

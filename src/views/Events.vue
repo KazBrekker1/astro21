@@ -19,18 +19,17 @@ import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
 import * as fb from "../../Firebase"
 
-import { eventsInfo } from "../assets/mockData/events.js"
 export default {
 	name: "Events",
 	components: { Event, EventForm, EventsCalendar },
 	setup() {
 		const store = useStore()
-		// store.dispatch("setEvents", eventsInfo)
+		let eventsArray
 		fb.eventsCollection
 			.where("userId", "==", fb.auth.currentUser.uid)
-			// .orderBy("createdOn", "desc")
+			.orderBy("createdOn", "desc")
 			.onSnapshot((snapshot) => {
-				let eventsArray = []
+				eventsArray = []
 				snapshot.forEach((doc) => {
 					let event = doc.data()
 					event.id = doc.id
@@ -50,32 +49,16 @@ export default {
 		}
 
 		const downloadEventsData = () => {
-			let csv
+			let keys = Object.keys(store.state.events[0])
+			keys = keys.filter((k) => k != "createdOn" && k != "id" && k != "userId")
+			// Build header
+			let csv = keys.join(",") + "\n"
 
-			// Loop the array of objects
-			for (let row = 0; row < store.state.events.length; row++) {
-				let keysAmount = Object.keys(store.state.events[row]).length
-				let keysCounter = 0
-
-				// If this is the first row, generate the headings
-				if (row === 0) {
-					// Loop each property of the object
-					for (let key in store.state.events[row]) {
-						// This is to not add a comma at the last cell
-						// The '\r\n' adds a new line
-						csv += key + (keysCounter + 1 < keysAmount ? "," : "\r\n")
-						keysCounter++
-					}
-				} else {
-					for (let key in store.state.events[row]) {
-						csv += store.state.events[row][key] + (keysCounter + 1 < keysAmount ? "," : "\r\n")
-						keysCounter++
-					}
-				}
-
-				keysCounter = 0
-			}
-
+			// Add the rows
+			store.state.events.forEach((obj) => {
+				csv += keys.map((k) => obj[k]).join(",") + "\n"
+			})
+			// console.log(csv)
 			// Once we are done looping, download the .csv by creating a link
 			let link = document.createElement("a")
 			link.id = "download_events-csv"
