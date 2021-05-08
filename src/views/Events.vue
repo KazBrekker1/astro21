@@ -17,13 +17,27 @@ import EventForm from "@/components/EventForm.vue"
 import EventsCalendar from "@/components/EventsCalendar.vue"
 import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
+import * as fb from "../../Firebase"
+
 import { eventsInfo } from "../assets/mockData/events.js"
 export default {
 	name: "Events",
 	components: { Event, EventForm, EventsCalendar },
 	setup() {
 		const store = useStore()
-		store.dispatch("setEvents", eventsInfo)
+		// store.dispatch("setEvents", eventsInfo)
+		fb.eventsCollection
+			.where("userId", "==", fb.auth.currentUser.uid)
+			// .orderBy("createdOn", "desc")
+			.onSnapshot((snapshot) => {
+				let eventsArray = []
+				snapshot.forEach((doc) => {
+					let event = doc.data()
+					event.id = doc.id
+					eventsArray.unshift(event) // Temporary
+				})
+				store.dispatch("setEvents", eventsArray)
+			})
 		const state = reactive({
 			formVisible: false,
 			calendarVisible: false,

@@ -23,7 +23,7 @@
 				<input
 					placeholder="Volunteer Number"
 					v-model="number"
-					type="text"
+					type="number"
 					class="bg-transparent text-center border-0 w-100 h5"
 					required
 				/>
@@ -32,7 +32,7 @@
 				<input
 					placeholder="Volunteer Email"
 					v-model="email"
-					type="text"
+					type="email"
 					class="bg-transparent text-center border-0 w-100 h5"
 					required
 				/>
@@ -60,7 +60,7 @@ export default {
 		})
 		const submitVolunteer = () => {
 			store.dispatch("addVolunteer", {
-				id: store.state.volunteers.length,
+				// id: store.state.volunteers.length,
 				name: volunteerState.name,
 				team: volunteerState.team,
 				number: volunteerState.number,

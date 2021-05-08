@@ -14,6 +14,8 @@ import VisitorForm from "@/components/VisitorForm.vue"
 import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
 import { visitorsInfo } from "../assets/mockData/visitors.js"
+import * as fb from "../../Firebase"
+
 export default {
 	name: "Visitors",
 	components: { Visitor, VisitorForm },
@@ -22,7 +24,19 @@ export default {
 		const state = reactive({
 			formVisible: false,
 		})
-		store.dispatch("setVisitors", visitorsInfo)
+		// store.dispatch("setVisitors", visitorsInfo)
+		fb.visitorsCollection
+			.where("userId", "==", fb.auth.currentUser.uid)
+			// .orderBy("createdOn", "desc")
+			.onSnapshot((snapshot) => {
+				let visitorsArray = []
+				snapshot.forEach((doc) => {
+					let visitor = doc.data()
+					visitor.id = doc.id
+					visitorsArray.unshift(visitor) // Temporary
+				})
+				store.dispatch("setVisitors", visitorsArray)
+			})
 		const toggleForm = () => {
 			state.formVisible = !state.formVisible
 		}

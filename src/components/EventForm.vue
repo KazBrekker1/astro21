@@ -48,7 +48,7 @@ export default {
 		})
 		const submitEvent = () => {
 			store.dispatch("addEvent", {
-				id: store.state.events.length,
+				// id: store.state.events.length,
 				name: eventState.name,
 				time: eventState.time,
 				description: eventState.description,

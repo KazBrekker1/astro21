@@ -39,7 +39,7 @@ export default {
 			conf ? store.dispatch("removeVisitor", props.visitorInfo.id) : null
 		}
 		const toggleStatus = () => {
-			store.dispatch("visitorArrived", props.visitorInfo.id)
+			store.dispatch("visitorArrived", props.visitorInfo)
 		}
 		return { removeVisitor, toggleStatus }
 	},

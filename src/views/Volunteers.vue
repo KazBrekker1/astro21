@@ -14,12 +14,26 @@ import VolunteerForm from "@/components/VolunteerForm.vue"
 import { reactive } from "vue"
 import { useStore, mapState } from "vuex"
 import { volunteersInfo } from "../assets/mockData/volunteers.js"
+import * as fb from "../../Firebase"
+
 export default {
 	name: "Volunteers",
 	components: { Volunteer, VolunteerForm },
 	setup() {
 		const store = useStore()
-		store.dispatch("setVolunteers", volunteersInfo)
+		// store.dispatch("setVolunteers", volunteersInfo)
+		fb.volunteersCollection
+			.where("userId", "==", fb.auth.currentUser.uid)
+			// .orderBy("createdOn", "desc")
+			.onSnapshot((snapshot) => {
+				let volunteersArray = []
+				snapshot.forEach((doc) => {
+					let volunteer = doc.data()
+					volunteer.id = doc.id
+					volunteersArray.unshift(volunteer) // Temporary
+				})
+				store.dispatch("setVolunteers", volunteersArray)
+			})
 		const state = reactive({
 			formVisible: false,
 		})

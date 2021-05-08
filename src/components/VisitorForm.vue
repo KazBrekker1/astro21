@@ -52,7 +52,7 @@ export default {
 		})
 		const submitVisitor = () => {
 			store.dispatch("addVisitor", {
-				id: store.state.visitors.length,
+				// id: store.state.visitors.length,
 				name: visitorState.name,
 				email: visitorState.email,
 				age: visitorState.age,
