@@ -60,7 +60,6 @@ export default {
 		})
 		const submitVolunteer = () => {
 			store.dispatch("addVolunteer", {
-				// id: store.state.volunteers.length,
 				name: volunteerState.name,
 				team: volunteerState.team,
 				number: volunteerState.number,

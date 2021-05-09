@@ -6,7 +6,7 @@
 				{{ visitorInfo["email"] }}
 			</p>
 			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ visitorInfo["age"] }}
+				{{ visitorInfo["number"] }}
 			</p>
 		</div>
 		<ul class="list-group m-2"></ul>

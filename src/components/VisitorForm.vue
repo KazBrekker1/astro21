@@ -21,10 +21,9 @@
 			</li>
 			<li class="list-group-item list-group-item-dark p-1 m-1">
 				<input
-					v-model="age"
-					type="number"
-					min="0"
-					max="99"
+					v-model="number"
+					placeholder="Visitor Phone"
+					type="tel"
 					class="bg-transparent text-center border-0 w-100 h5"
 					required
 				/>
@@ -47,15 +46,14 @@ export default {
 		const visitorState = reactive({
 			name: "",
 			email: "",
-			age: 0,
+			number: "",
 			arrived: false,
 		})
 		const submitVisitor = () => {
 			store.dispatch("addVisitor", {
-				// id: store.state.visitors.length,
 				name: visitorState.name,
 				email: visitorState.email,
-				age: visitorState.age,
+				number: visitorState.number,
 				arrived: visitorState.arrived,
 			})
 			cancelForm()

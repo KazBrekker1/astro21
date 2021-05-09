@@ -112,16 +112,13 @@ export default createStore({
 				time: event.time,
 				description: event.description,
 				userId: fb.auth.currentUser.uid,
-				// userName: state.userProfile.name,
 			})
-			// commit("ADD_EVENT", event)
 		},
 		async removeEvent({ state, commit }, eventId) {
 			await fb.eventsCollection.doc(eventId).delete()
 			// .then(() => {
 			// 	// commit("setError", "Recipe Removed")
 			// })
-			// commit("REMOVE_EVENT", eventId)
 		},
 		setVolunteers({ state, commit }, volunteers) {
 			commit("SET_VOLUNTEERS", volunteers)
@@ -134,13 +131,10 @@ export default createStore({
 				team: volunteer.team,
 				number: volunteer.number,
 				userId: fb.auth.currentUser.uid,
-				// userName: state.userProfile.name,
 			})
-			// commit("ADD_VOLUNTEER", volunteer)
 		},
 		async removeVolunteer({ state, commit }, volunteerId) {
 			await fb.volunteersCollection.doc(volunteerId).delete()
-			// commit("REMOVE_VOLUNTEER", volunteerId)
 		},
 		setVisitors({ state, commit }, visitors) {
 			commit("SET_VISITORS", visitors)
@@ -156,10 +150,9 @@ export default createStore({
 				createdOn: new Date(),
 				name: visitor.name,
 				email: visitor.email,
-				age: visitor.age,
+				number: visitor.number,
 				arrived: visitor.arrived,
 				userId: fb.auth.currentUser.uid,
-				// userName: state.userProfile.name,
 			})
 			commit(
 				"SET_VISITORS",
@@ -170,13 +163,11 @@ export default createStore({
 		},
 		async removeVisitor({ state, commit }, visitorId) {
 			await fb.visitorsCollection.doc(visitorId).delete()
-			// commit("REMOVE_VISITOR", visitorId)
 		},
 		async visitorArrived({ state, commit }, visitor) {
 			await fb.visitorsCollection.doc(visitor.id).update({
 				arrived: !visitor.arrived,
 			})
-			// commit("ARRIVE_VISITOR", visitorId)
 			commit(
 				"SET_VISITORS",
 				state.visitors.sort((x, y) => {
