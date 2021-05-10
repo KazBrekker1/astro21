@@ -4,6 +4,7 @@ const history = require("connect-history-api-fallback")
 const enforce = require("express-sslify")
 
 const app = express()
+require("dotenv").config()
 
 app.use(enforce.HTTPS({ trustProtoHeader: true }))
 
