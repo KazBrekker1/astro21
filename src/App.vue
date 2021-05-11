@@ -1,12 +1,13 @@
 <template>
 	<nav id="nav" class="navbar bg-dark sticky-top p-1 shadow-sm">
-		<!-- <div id="nav" class="text-white sticky-lg-top"> -->
+		<div v-if="userProfile.name" class="btn btn-outline-primary text-light fw-bold m-1 px-3">
+			<span> Arrived: {{ visitors.filter((v) => v.arrived).length }}</span>
+		</div>
 		<div v-if="userProfile.name" class="m-auto">
 			<router-link to="/visitors">Visitors</router-link>
 			| <router-link to="/events">Events</router-link> |
 			<router-link to="/volunteers">Volunteers</router-link>
 		</div>
-		<!-- </div> -->
 		<div v-if="!userProfile.name" class="m-auto">
 			<router-link to="/login" class="nav-item"> Log-In </router-link> |
 			<router-link to="/register" class="nav-item"> Register </router-link>
@@ -30,6 +31,7 @@ export default {
 	},
 	computed: {
 		...mapState(["userProfile"]),
+		...mapState(["visitors"]),
 	},
 }
 </script>
