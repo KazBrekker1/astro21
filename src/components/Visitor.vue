@@ -17,7 +17,7 @@
 				v-bind:class="{ 'btn-warning': !visitorInfo['arrived'], 'btn-success': visitorInfo['arrived'] }"
 				@click="toggleStatus"
 			>
-				<span v-if="visitorInfo['arrived']">Arrrived</span>
+				<span v-if="visitorInfo['arrived']">Arrived</span>
 				<span v-else>Absent</span>
 			</button>
 			<button type="button" class="btn btn-danger" @click="removeVisitor">Delete</button>

@@ -16,7 +16,7 @@ const routes = [
 	{
 		path: "/register",
 		name: "Register",
-		component: Register,
+		component: process.env.VUE_APP_DEP == "false" ? Register : Login,
 	},
 	{
 		path: "/visitors",
