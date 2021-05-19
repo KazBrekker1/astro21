@@ -25,7 +25,6 @@
 					v-model="number"
 					type="number"
 					class="bg-transparent text-center border-0 w-100 h5"
-					required
 				/>
 			</li>
 			<li class="list-group-item list-group-item-dark p-1 m-1">
@@ -34,7 +33,6 @@
 					v-model="email"
 					type="email"
 					class="bg-transparent text-center border-0 w-100 h5"
-					required
 				/>
 			</li>
 		</ul>
@@ -62,8 +60,8 @@ export default {
 			store.dispatch("addVolunteer", {
 				name: volunteerState.name,
 				team: volunteerState.team,
-				number: volunteerState.number,
-				email: volunteerState.email,
+				number: volunteerState.number || "00000000",
+				email: volunteerState.email || "private@area51.com",
 			})
 			emit("exitForm")
 		}

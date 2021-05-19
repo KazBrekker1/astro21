@@ -56,7 +56,6 @@ export default createStore({
 		},
 	},
 	actions: {
-		/////////////////////////////////
 		async login({ dispatch, commit }, form) {
 			// sign user in
 			try {
@@ -90,7 +89,7 @@ export default createStore({
 				})
 				NProgress.done()
 				commit("setError", "")
-				commit("setSuccess", "Welcome!")
+				commit("setSuccess", "Welcome !")
 				// fetch user profile and set in state
 				dispatch("fetchUserProfile", user)
 			} catch (err) {
@@ -116,9 +115,6 @@ export default createStore({
 		},
 		async removeEvent({ state, commit }, eventId) {
 			await fb.eventsCollection.doc(eventId).delete()
-			// .then(() => {
-			// 	// commit("setError", "Recipe Removed")
-			// })
 		},
 		setVolunteers({ state, commit }, volunteers) {
 			commit("SET_VOLUNTEERS", volunteers)
