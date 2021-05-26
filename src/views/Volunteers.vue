@@ -1,6 +1,23 @@
 <template>
+	<div class="container mx-auto">
+		<div class="row height w-75 m-auto">
+			<div class="search gap-3">
+				<input type="text" class="form-control" placeholder="Name" v-model="searchName" />
+				<input type="text" class="form-control" placeholder="Team" v-model="searchTeam" />
+			</div>
+		</div>
+	</div>
 	<div class="volunteers">
-		<Volunteer v-for="volunteer in volunteers" :key="volunteer['id']" :volunteerInfo="volunteer" />
+		<Volunteer
+			class="mx-auto"
+			v-for="volunteer in [...volunteers].filter(
+				(vol) =>
+					vol.name.toLowerCase().includes(searchName.toLowerCase()) &&
+					vol.team.toLowerCase().includes(searchTeam.toLowerCase())
+			)"
+			:key="volunteer['id']"
+			:volunteerInfo="volunteer"
+		/>
 		<VolunteerForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<div v-if="!state.formVisible" class="addNew">
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
@@ -12,7 +29,7 @@
 <script>
 import Volunteer from "@/components/Volunteer.vue"
 import VolunteerForm from "@/components/VolunteerForm.vue"
-import { reactive } from "vue"
+import { reactive, toRefs } from "vue"
 import { useStore, mapState } from "vuex"
 import * as fb from "../../Firebase"
 
@@ -21,6 +38,13 @@ export default {
 	components: { Volunteer, VolunteerForm },
 	setup() {
 		const store = useStore()
+		const state = reactive({
+			formVisible: false,
+		})
+		const searcherState = reactive({
+			searchName: "",
+			searchTeam: "",
+		})
 		let volunteersArray
 		fb.volunteersCollection
 			.where("userId", "==", fb.auth.currentUser.uid)
@@ -34,9 +58,7 @@ export default {
 				})
 				store.dispatch("setVolunteers", volunteersArray)
 			})
-		const state = reactive({
-			formVisible: false,
-		})
+
 		const toggleForm = () => {
 			state.formVisible = !state.formVisible
 		}
@@ -60,7 +82,8 @@ export default {
 			document.body.appendChild(link)
 			document.querySelector("#download_volunteers-csv").click()
 		}
-		return { state, toggleForm, downloadVolunteersData }
+
+		return { state, toggleForm, downloadVolunteersData, ...toRefs(searcherState) }
 	},
 	computed: {
 		...mapState(["volunteers"]),

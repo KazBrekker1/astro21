@@ -15,3 +15,86 @@ input:required {
 		color: rgb(124, 124, 124);
 	}
 }
+.search {
+	position: relative;
+	display: flex;
+	box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+	-ms-transform: scale(0.9, 0.9); /* IE 9 */
+	-webkit-transform: scale(0.9, 0.9); /* Safari */
+	transform: scale(0.9, 0.9);
+}
+
+.search input {
+	height: 60px;
+	text-indent: 25px;
+	border: 2px solid #d6d4d4;
+}
+
+.search input:focus {
+	box-shadow: none;
+	border: 2px solid blue;
+}
+
+.search .fa-search {
+	position: absolute;
+	top: 20px;
+	left: 16px;
+}
+
+.search button {
+	height: 3rem;
+	width: 6rem;
+	background: blue;
+}
+
+.fade-in {
+	animation: fadeIn ease 300ms;
+	-webkit-animation: fadeIn ease 300ms;
+	-moz-animation: fadeIn ease 300ms;
+	-o-animation: fadeIn ease 300ms;
+	-ms-animation: fadeIn ease 300ms;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-o-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@-ms-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

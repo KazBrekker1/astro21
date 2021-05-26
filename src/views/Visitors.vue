@@ -1,6 +1,24 @@
 <template>
+	<div class="container mx-auto">
+		<div class="row height w-75 m-auto">
+			<div class="search gap-3">
+				<input type="text" class="form-control" placeholder="Name" v-model="searchName" />
+				<input type="text" class="form-control" placeholder="Number" v-model="searchNumber" />
+				<input type="text" class="form-control" placeholder="Email" v-model="searchEmail" />
+			</div>
+		</div>
+	</div>
 	<div class="visitors">
-		<Visitor v-for="visitor in visitors" :key="visitor['id']" :visitorInfo="visitor" />
+		<Visitor
+			v-for="visitor in [...visitors].filter(
+				(vis) =>
+					vis.name.toLowerCase().includes(searchName.toLowerCase()) &&
+					vis.number.slice(0, searchNumber.length).includes(searchNumber) &&
+					vis.email.toLowerCase().includes(searchEmail.toLowerCase())
+			)"
+			:key="visitor['id']"
+			:visitorInfo="visitor"
+		/>
 		<VisitorForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<div v-if="!state.formVisible" class="addNew">
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
@@ -12,7 +30,7 @@
 <script>
 import Visitor from "@/components/Visitor.vue"
 import VisitorForm from "@/components/VisitorForm.vue"
-import { reactive } from "vue"
+import { reactive, toRefs } from "vue"
 import { useStore, mapState } from "vuex"
 import * as fb from "../../Firebase"
 
@@ -23,6 +41,11 @@ export default {
 		const store = useStore()
 		const state = reactive({
 			formVisible: false,
+		})
+		const searcherState = reactive({
+			searchName: "",
+			searchNumber: "",
+			searchEmail: "",
 		})
 		let visitorsArray
 		fb.visitorsCollection.where("userId", "==", fb.auth.currentUser.uid).onSnapshot((snapshot) => {
@@ -57,7 +80,7 @@ export default {
 			document.body.appendChild(link)
 			document.querySelector("#download_visitors-csv").click()
 		}
-		return { state, toggleForm, downloadVisitorsData }
+		return { state, toggleForm, downloadVisitorsData, ...toRefs(searcherState) }
 	},
 	computed: {
 		...mapState(["visitors"]),

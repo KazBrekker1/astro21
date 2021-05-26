@@ -19,6 +19,10 @@
 		<button v-else class="btn btn-outline-danger m-1 px-3 fw-bold" @click="logout">Logout</button>
 	</nav>
 	<router-view />
+	<div v-if="error || success" class="fade-in bg-dark m-auto my-3 p-3 rounded-3 shadow-sm" style="width: 20%">
+		<span v-if="error" class="text-danger">{{ error }}</span>
+		<span v-if="success" class="text-success">{{ success }}</span>
+	</div>
 </template>
 
 <script>
@@ -38,6 +42,8 @@ export default {
 	computed: {
 		...mapState(["userProfile"]),
 		...mapState(["visitors"]),
+		...mapState(["error"]),
+		...mapState(["success"]),
 	},
 }
 </script>
@@ -55,6 +61,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
+	height: 100vh;
 }
 
 #nav {
