@@ -30,8 +30,10 @@ export default {
 	setup(props) {
 		const store = useStore()
 		const removeVolunteer = () => {
-			let conf = confirm(`Delete ${props.volunteerInfo.name}`)
-			conf ? store.dispatch("removeVolunteer", props.volunteerInfo.id) : null
+			let confirmDeleteCode = prompt(`Enter code to delete ${props.volunteerInfo.name}:`, "Code")
+			confirmDeleteCode == "GreenHorn"
+				? store.dispatch("removeVolunteer", props.volunteerInfo.id)
+				: alert("Meh, Don't feel like letting you delete it")
 		}
 		return { removeVolunteer }
 	},
