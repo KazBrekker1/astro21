@@ -1,22 +1,23 @@
 <template>
 	<nav id="nav" class="navbar bg-dark sticky-top p-1 shadow-sm">
 		<div
+			id="arrived"
 			v-if="userProfile.name"
 			class="btn btn-outline-warning text-warning fw-bold m-1 px-3"
 			style="pointer-events: none"
 		>
 			<span> Arrived: {{ visitors.filter((v) => v.arrived).length }}</span>
 		</div>
-		<div v-if="userProfile.name" class="m-auto">
-			<router-link to="/visitors">Visitors</router-link>
-			| <router-link to="/events">Events</router-link> |
-			<router-link to="/volunteers">Volunteers</router-link>
+		<div id="links" v-if="userProfile.name" class="m-auto">
+			<router-link class="mx-2" to="/visitors"> Visitors </router-link>
+			<router-link class="mx-2" to="/events"> Events </router-link>
+			<router-link class="mx-2" to="/volunteers"> Volunteers </router-link>
 		</div>
 		<div v-if="!userProfile.name" class="m-auto">
-			<router-link to="/login" class="nav-item"> Log-In </router-link> |
+			<router-link to="/login" class="nav-item"> Log-In </router-link>
 			<router-link v-if="dep" to="/register" class="nav-item"> Register </router-link>
 		</div>
-		<button v-else class="btn btn-outline-danger m-1 px-3 fw-bold" @click="logout">Logout</button>
+		<button id="logout" v-else class="btn btn-outline-danger m-1 px-3 fw-bold" @click="logout">Logout</button>
 	</nav>
 	<router-view />
 	<div v-if="error || success" class="fade-in bg-dark m-auto my-3 p-3 rounded-3 shadow-sm" style="width: 20%">
@@ -77,5 +78,32 @@ body {
 			color: $warning;
 		}
 	}
+	@media screen and (max-width: 667px) {
+		display: grid;
+		gap: 0.1rem;
+		justify-content: space-around;
+		grid-template-areas: "links arrived" "links logout";
+		#arrived {
+			grid-area: arrived;
+		}
+		#links {
+			row-gap: 0.3rem;
+			display: flex;
+			flex-direction: column;
+			grid-area: links;
+		}
+		#logout {
+			grid-area: logout;
+		}
+	}
 }
+
+// #links {
+// 	@media screen and (max-width: 667px) {
+// 		display: grid;
+// 		place-content: center;
+// 		// grid-template-columns: 40% 50%;
+// 		grid-row: 3 / span 2;
+// 	}
+// }
 </style>

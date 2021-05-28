@@ -1,6 +1,6 @@
 <template>
 	<div class="container mx-auto">
-		<div class="row height w-75 m-auto">
+		<div class="row height w-80 m-auto">
 			<div class="search gap-3">
 				<input type="text" class="form-control" placeholder="Name" v-model="searchName" />
 				<input type="text" class="form-control" placeholder="Team" v-model="searchTeam" />
