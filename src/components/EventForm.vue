@@ -29,7 +29,7 @@
 		</ul>
 		<div class="card-footer p-3 shadow-sm">
 			<button type="submit" class="btn btn-success">Submit</button>
-			<button type="button" class="btn btn-danger" @click="cancelForm">Cancle</button>
+			<button type="button" class="btn btn-danger" @click="cancelForm">Cancel</button>
 		</div>
 	</form>
 </template>
