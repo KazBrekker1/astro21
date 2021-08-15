@@ -1,21 +1,5 @@
-# astro21
+# Astro 21
+## A management app for Astrocon 2021
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+### Not available publically
