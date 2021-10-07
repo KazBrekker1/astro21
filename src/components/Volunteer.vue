@@ -2,19 +2,21 @@
 	<div class="card bg-primary text-white" style="width: 20rem">
 		<div class="card-body">
 			<h5 class="card-title">{{ volunteerInfo["name"] }}</h5>
-			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ volunteerInfo["team"] }}
-			</p>
-			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ volunteerInfo["email"] }}
-			</p>
-			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ volunteerInfo["number"] }}
-			</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ volunteerInfo["team"] }}</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ volunteerInfo["email"] }}</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ volunteerInfo["number"] }}</p>
 		</div>
 		<ul class="list-group m-2"></ul>
 		<div class="card-footer p-2 shadow-sm">
-			<button type="button" class="btn btn-warning">Edit</button>
+			<button
+				type="button"
+				class="btn"
+				v-bind:class="{ 'btn-warning': !volunteerInfo['present'], 'btn-success': volunteerInfo['present'] }"
+				@click="toggleCheckin"
+			>
+				<span v-if="volunteerInfo['present']">Present</span>
+				<span v-else>Not Here</span>
+			</button>
 			<button type="button" class="btn btn-danger" @click="removeVolunteer">Delete</button>
 		</div>
 	</div>
@@ -35,7 +37,10 @@ export default {
 				? store.dispatch("removeVolunteer", props.volunteerInfo.id)
 				: alert("Meh, Don't feel like letting you delete it")
 		}
-		return { removeVolunteer }
+		const toggleCheckin = () => {
+			store.dispatch("volunteerArrived", props.volunteerInfo)
+		}
+		return { removeVolunteer, toggleCheckin }
 	},
 }
 </script>

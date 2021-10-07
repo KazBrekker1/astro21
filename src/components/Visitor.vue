@@ -4,6 +4,7 @@
 			<h5 class="card-title">{{ visitorInfo["name"] }}</h5>
 			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["email"] }}</p>
 			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["number"] }}</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["ticketNumbers"] }}</p>
 		</div>
 		<ul class="list-group m-2"></ul>
 		<div class="card-footer p-2 shadow-sm">

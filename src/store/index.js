@@ -171,5 +171,16 @@ export default createStore({
 				})
 			)
 		},
+		async volunteerArrived({ state, commit }, volunteer) {
+			await fb.volunteersCollection.doc(volunteer.id).update({
+				present: !volunteer.present,
+			})
+			commit(
+				"SET_VOLUNTEERS",
+				state.volunteers.sort((x, y) => {
+					return x.present - y.present
+				})
+			)
+		},
 	},
 })
