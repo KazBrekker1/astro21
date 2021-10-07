@@ -47,8 +47,9 @@ export default {
 			searchNumber: "",
 			searchEmail: "",
 		})
-		let visitorsArray = []
+		let visitorsArray
 		fb.visitorsCollection.where("userId", "==", fb.auth.currentUser.uid).onSnapshot((snapshot) => {
+			visitorsArray = []
 			snapshot.forEach((doc) => {
 				let visitor = doc.data()
 				visitor.id = doc.id
