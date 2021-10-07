@@ -13,7 +13,7 @@
 			v-for="visitor in [...visitors].filter(
 				(vis) =>
 					vis.name.toLowerCase().includes(searchName.toLowerCase()) &&
-					vis.number.slice(0, searchNumber.length).includes(searchNumber) &&
+					vis.number.includes(searchNumber) &&
 					vis.email.toLowerCase().includes(searchEmail.toLowerCase())
 			)"
 			:key="visitor['id']"
@@ -53,6 +53,7 @@ export default {
 			snapshot.forEach((doc) => {
 				let visitor = doc.data()
 				visitor.id = doc.id
+				visitor.number = `${visitor.number}`
 				visitorsArray.unshift(visitor) // Temporary
 			})
 			store.dispatch("setVisitors", visitorsArray)
@@ -80,7 +81,10 @@ export default {
 			document.body.appendChild(link)
 			document.querySelector("#download_visitors-csv").click()
 		}
-		return { state, toggleForm, downloadVisitorsData, ...toRefs(searcherState) }
+		const loadVisitors = () => {
+			console.log(this.$refs.files[0])
+		}
+		return { state, toggleForm, downloadVisitorsData, loadVisitors, ...toRefs(searcherState) }
 	},
 	computed: {
 		...mapState(["visitors"]),
