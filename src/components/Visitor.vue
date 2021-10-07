@@ -2,12 +2,8 @@
 	<div class="card bg-primary text-white" style="width: 20rem">
 		<div class="card-body">
 			<h5 class="card-title">{{ visitorInfo["name"] }}</h5>
-			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ visitorInfo["email"] }}
-			</p>
-			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">
-				{{ visitorInfo["number"] }}
-			</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["email"] }}</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["number"] }}</p>
 		</div>
 		<ul class="list-group m-2"></ul>
 		<div class="card-footer p-2 shadow-sm">
@@ -35,8 +31,9 @@ export default {
 	setup(props) {
 		const store = useStore()
 		const removeVisitor = () => {
-			let conf = confirm(`Delete ${props.visitorInfo.name}`)
-			conf ? store.dispatch("removeVisitor", props.visitorInfo.id) : null
+			let confirmDeleteCode = prompt(`Enter code to delete ${props.visitorInfo.name}:`, "Code")
+			confirmDeleteCode == "GreenHorn"
+			confirmDeleteCode ? store.dispatch("removeVisitor", props.visitorInfo.id) : alert("Meh, Don't feel like letting you delete it")
 		}
 		const toggleStatus = () => {
 			store.dispatch("visitorArrived", props.visitorInfo)
