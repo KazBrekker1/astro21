@@ -119,13 +119,14 @@ export default createStore({
 		setVolunteers({ commit }, volunteers) {
 			commit("SET_VOLUNTEERS", volunteers)
 		},
-		async addVolunteer({ commit }, volunteer) {
+		async addVolunteer({ state, commit }, volunteer) {
 			await fb.volunteersCollection.add({
 				createdOn: new Date(),
 				name: volunteer.name,
 				email: volunteer.email,
 				team: volunteer.team,
 				number: volunteer.number,
+				present: false,
 				userId: fb.auth.currentUser.uid,
 			})
 			commit(
@@ -153,7 +154,8 @@ export default createStore({
 				name: visitor.name,
 				email: visitor.email,
 				number: visitor.number,
-				arrived: visitor.arrived,
+				ticketNumbers: "X00",
+				arrived: false,
 				userId: fb.auth.currentUser.uid,
 			})
 			commit(
