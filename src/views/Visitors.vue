@@ -5,6 +5,7 @@
 				<input type="text" class="form-control" placeholder="Name" v-model="searchName" />
 				<input type="text" class="form-control" placeholder="Number" v-model="searchNumber" />
 				<input type="text" class="form-control" placeholder="Email" v-model="searchEmail" />
+				<input type="text" class="form-control" placeholder="Ticket Number" v-model="searchTicket" />
 			</div>
 		</div>
 	</div>
@@ -13,6 +14,7 @@
 			v-for="visitor in [...visitors].filter(
 				(vis) =>
 					vis.name.toLowerCase().includes(searchName.toLowerCase()) &&
+					vis.ticketNumbers?.toLowerCase().includes(searchTicket.toLowerCase()) &&
 					vis.number.includes(searchNumber) &&
 					vis.email.toLowerCase().includes(searchEmail.toLowerCase())
 			)"
@@ -46,6 +48,7 @@ export default {
 			searchName: "",
 			searchNumber: "",
 			searchEmail: "",
+			searchTicket: "",
 		})
 		let visitorsArray
 		fb.visitorsCollection.where("userId", "==", fb.auth.currentUser.uid).onSnapshot((snapshot) => {
@@ -81,10 +84,7 @@ export default {
 			document.body.appendChild(link)
 			document.querySelector("#download_visitors-csv").click()
 		}
-		const loadVisitors = () => {
-			console.log(this.$refs.files[0])
-		}
-		return { state, toggleForm, downloadVisitorsData, loadVisitors, ...toRefs(searcherState) }
+		return { state, toggleForm, downloadVisitorsData, ...toRefs(searcherState) }
 	},
 	computed: {
 		...mapState(["visitors"]),
