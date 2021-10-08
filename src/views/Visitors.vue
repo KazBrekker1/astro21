@@ -51,7 +51,9 @@ export default {
 			searchTicket: "",
 		})
 		let visitorsArray
-		fb.visitorsCollection.where("userId", "==", fb.auth.currentUser.uid).onSnapshot((snapshot) => {
+		fb.visitorsCollection
+		.where("userId", "==", fb.auth.currentUser.uid)
+		.onSnapshot((snapshot) => {
 			visitorsArray = []
 			snapshot.forEach((doc) => {
 				let visitor = doc.data()

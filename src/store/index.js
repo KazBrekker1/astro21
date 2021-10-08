@@ -101,10 +101,10 @@ export default createStore({
 			commit("setUserProfile", {})
 			router.push("/login")
 		},
-		setEvents({ state, commit }, events) {
+		setEvents({ commit }, events) {
 			commit("SET_EVENTS", events)
 		},
-		async addEvent({ state, commit }, event) {
+		async addEvent({ }, event) {
 			await fb.eventsCollection.add({
 				createdOn: new Date(),
 				name: event.name,
@@ -113,13 +113,13 @@ export default createStore({
 				userId: fb.auth.currentUser.uid,
 			})
 		},
-		async removeEvent({ state, commit }, eventId) {
+		async removeEvent({ }, eventId) {
 			await fb.eventsCollection.doc(eventId).delete()
 		},
-		setVolunteers({ state, commit }, volunteers) {
+		setVolunteers({ commit }, volunteers) {
 			commit("SET_VOLUNTEERS", volunteers)
 		},
-		async addVolunteer({ state, commit }, volunteer) {
+		async addVolunteer({ }, volunteer) {
 			await fb.volunteersCollection.add({
 				createdOn: new Date(),
 				name: volunteer.name,
@@ -128,8 +128,14 @@ export default createStore({
 				number: volunteer.number,
 				userId: fb.auth.currentUser.uid,
 			})
+			commit(
+				"SET_VOLUNTEERS",
+				state.volunteers.sort((x, y) => {
+					return x.present - y.present
+				})
+			)
 		},
-		async removeVolunteer({ state, commit }, volunteerId) {
+		async removeVolunteer({ }, volunteerId) {
 			await fb.volunteersCollection.doc(volunteerId).delete()
 		},
 		setVisitors({ state, commit }, visitors) {
@@ -157,7 +163,7 @@ export default createStore({
 				})
 			)
 		},
-		async removeVisitor({ state, commit }, visitorId) {
+		async removeVisitor({ }, visitorId) {
 			await fb.visitorsCollection.doc(visitorId).delete()
 		},
 		async visitorArrived({ state, commit }, visitor) {
