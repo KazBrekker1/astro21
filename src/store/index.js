@@ -119,7 +119,7 @@ export default createStore({
 		setVolunteers({ commit }, volunteers) {
 			commit("SET_VOLUNTEERS", volunteers)
 		},
-		async addVolunteer({ }, volunteer) {
+		async addVolunteer({ commit }, volunteer) {
 			await fb.volunteersCollection.add({
 				createdOn: new Date(),
 				name: volunteer.name,

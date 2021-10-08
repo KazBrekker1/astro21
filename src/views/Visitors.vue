@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="visitors">
-		<Visitor
+		<div
 			v-for="visitor in [...visitors].filter(
 				(vis) =>
 					vis.name.toLowerCase().includes(searchName.toLowerCase()) &&
@@ -19,8 +19,10 @@
 					vis.email.toLowerCase().includes(searchEmail.toLowerCase())
 			)"
 			:key="visitor['id']"
-			:visitorInfo="visitor"
-		/>
+		>
+			<Visitor :visitorInfo="visitor" />
+			<VisitorWorkshops :visitorInfo="visitor" />
+		</div>
 		<VisitorForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<div v-if="!state.formVisible" class="addNew">
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
@@ -32,13 +34,14 @@
 <script>
 import Visitor from "@/components/Visitor.vue"
 import VisitorForm from "@/components/VisitorForm.vue"
+import VisitorWorkshops from "@/components/VisitorWorkshops.vue"
 import { reactive, toRefs } from "vue"
 import { useStore, mapState } from "vuex"
 import * as fb from "../../Firebase"
 
 export default {
 	name: "Visitors",
-	components: { Visitor, VisitorForm },
+	components: { Visitor, VisitorForm, VisitorWorkshops },
 	setup() {
 		const store = useStore()
 		const state = reactive({
@@ -52,17 +55,17 @@ export default {
 		})
 		let visitorsArray
 		fb.visitorsCollection
-		.where("userId", "==", fb.auth.currentUser.uid)
-		.onSnapshot((snapshot) => {
-			visitorsArray = []
-			snapshot.forEach((doc) => {
-				let visitor = doc.data()
-				visitor.id = doc.id
-				visitor.number = `${visitor.number}`
-				visitorsArray.unshift(visitor) // Temporary
+			.where("userId", "==", fb.auth.currentUser.uid)
+			.onSnapshot((snapshot) => {
+				visitorsArray = []
+				snapshot.forEach((doc) => {
+					let visitor = doc.data()
+					visitor.id = doc.id
+					visitor.number = `${visitor.number}`
+					visitorsArray.unshift(visitor) // Temporary
+				})
+				store.dispatch("setVisitors", visitorsArray)
 			})
-			store.dispatch("setVisitors", visitorsArray)
-		})
 		const toggleForm = () => {
 			state.formVisible = !state.formVisible
 		}

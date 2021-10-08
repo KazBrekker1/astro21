@@ -17,6 +17,12 @@
 				<span v-if="visitorInfo['arrived']">Arrived</span>
 				<span v-else>Absent</span>
 			</button>
+			<button
+				class="btn btn-info"
+				type="button"
+				data-bs-toggle="modal"
+				:data-bs-target="`#${visitorInfo.id}_modal`"
+			>Workshops</button>
 			<button type="button" class="btn btn-danger" @click="removeVisitor">Delete</button>
 		</div>
 	</div>
