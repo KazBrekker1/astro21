@@ -13,6 +13,7 @@
 					<option value="Logistics">Logistics Team</option>
 					<option value="Backstage">Backstage Team</option>
 					<option value="Technology">Technology Team</option>
+					<option value="Translation">Translation Team</option>
 					<option value="Registration">Registration Team</option>
 					<option value="Human Resources">Human Resources Team</option>
 					<option value="Media and Design">Media and Design Team</option>
