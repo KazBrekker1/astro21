@@ -16,17 +16,10 @@
 					v-model="email"
 					type="email"
 					class="bg-transparent text-center border-0 w-100 h5"
-					required
 				/>
 			</li>
 			<li class="list-group-item list-group-item-dark p-1 m-1">
-				<input
-					v-model="number"
-					placeholder="Visitor Phone"
-					type="tel"
-					class="bg-transparent text-center border-0 w-100 h5"
-					required
-				/>
+				<input v-model="number" placeholder="Visitor Phone" type="tel" class="bg-transparent text-center border-0 w-100 h5" />
 			</li>
 			<li class="list-group-item list-group-item-dark p-1 pb-0 m-1">
 				<select class="bg-transparent border-0 w-100 h5" v-model="p1D1">
@@ -112,9 +105,9 @@ export default {
 		const submitVisitor = () => {
 			store.dispatch("addVisitor", {
 				name: visitorState.name,
-				email: visitorState.email,
-				number: visitorState.number,
 				arrived: visitorState.arrived,
+				number: visitorState.number || "00000000",
+				email: visitorState.email || "private@area51.com",
 				p1D1: visitorState.p1D1 || "Didnt register For a Workshop",
 				p2D1: visitorState.p2D1 || "Didnt register For a Workshop",
 				p1D2: visitorState.p1D2 || "Didnt register For a Workshop",
