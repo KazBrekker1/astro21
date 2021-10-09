@@ -14,6 +14,7 @@
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
 			<button class="btn btn-primary p-3" @click="downloadVisitorsData">Download</button>
 		</div>
+		<VisitorForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<div
 			v-for="visitor in [...visitors].filter(
 				(vis) =>
@@ -27,7 +28,6 @@
 			<Visitor :visitorInfo="visitor" />
 			<VisitorWorkshops :visitorInfo="visitor" />
 		</div>
-		<VisitorForm v-if="state.formVisible" @exitForm="toggleForm" />
 	</div>
 </template>
 

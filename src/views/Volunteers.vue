@@ -12,6 +12,7 @@
 			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
 			<button class="btn btn-primary p-3" @click="downloadVolunteersData">Download</button>
 		</div>
+		<VolunteerForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<Volunteer
 			class="mx-auto"
 			v-for="volunteer in [...volunteers].filter(
@@ -22,7 +23,6 @@
 			:key="volunteer['id']"
 			:volunteerInfo="volunteer"
 		/>
-		<VolunteerForm v-if="state.formVisible" @exitForm="toggleForm" />
 	</div>
 </template>
 
