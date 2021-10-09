@@ -10,6 +10,10 @@
 		</div>
 	</div>
 	<div class="visitors">
+		<div v-if="!state.formVisible" class="addNew">
+			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
+			<button class="btn btn-primary p-3" @click="downloadVisitorsData">Download</button>
+		</div>
 		<div
 			v-for="visitor in [...visitors].filter(
 				(vis) =>
@@ -24,10 +28,6 @@
 			<VisitorWorkshops :visitorInfo="visitor" />
 		</div>
 		<VisitorForm v-if="state.formVisible" @exitForm="toggleForm" />
-		<div v-if="!state.formVisible" class="addNew">
-			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
-			<button class="btn btn-primary p-3" @click="downloadVisitorsData">Download</button>
-		</div>
 	</div>
 </template>
 

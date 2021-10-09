@@ -8,6 +8,10 @@
 		</div>
 	</div>
 	<div class="volunteers">
+		<div v-if="!state.formVisible" class="addNew">
+			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
+			<button class="btn btn-primary p-3" @click="downloadVolunteersData">Download</button>
+		</div>
 		<Volunteer
 			class="mx-auto"
 			v-for="volunteer in [...volunteers].filter(
@@ -19,10 +23,6 @@
 			:volunteerInfo="volunteer"
 		/>
 		<VolunteerForm v-if="state.formVisible" @exitForm="toggleForm" />
-		<div v-if="!state.formVisible" class="addNew">
-			<button class="btn btn-success p-3" @click="toggleForm">Add</button>
-			<button class="btn btn-primary p-3" @click="downloadVolunteersData">Download</button>
-		</div>
 	</div>
 </template>
 
