@@ -159,7 +159,7 @@ export default createStore({
 				p1D2: visitor.p1D2,
 				p2D2: visitor.p2D2,
 				ticketNumbers: "X00",
-				arrived: false,
+				arrived: true,
 				userId: fb.auth.currentUser.uid,
 			})
 			commit(
