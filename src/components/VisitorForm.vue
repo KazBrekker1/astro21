@@ -65,7 +65,7 @@
 			</li>
 			<li class="list-group-item list-group-item-dark p-1 pb-0 m-1">
 				<select class="bg-transparent border-0 w-100 h5" v-model="p2D2">
-					<option value disabled>Select p1D2</option>
+					<option value disabled>Select p2D2</option>
 					<option
 						value="Dr. Muhammad Al-Asiri - What are space technologies' pros and cons? || تقنيات الفضاء ما لها وما عليها - د. محمد العصيري"
 					>Dr. Muhammad Al-Asiri - What are space technologies' pros and cons? || تقنيات الفضاء ما لها وما عليها - د. محمد العصيري"</option>
