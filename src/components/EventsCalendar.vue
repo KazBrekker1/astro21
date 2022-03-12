@@ -14,13 +14,7 @@
 				<div class="modal-content bg-dark">
 					<div class="modal-header bg-warning text-dark">
 						<h5 class="modal-title fs-4" id="eventsModalLabel">Events</h5>
-						<button
-							type="button"
-							class="btn-close"
-							data-bs-dismiss="modal"
-							aria-label="Close"
-							@click="cancelCalendar"
-						></button>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="cancelCalendar"></button>
 					</div>
 					<div class="modal-body">
 						<ol class="list-group p-3">
@@ -35,16 +29,18 @@
 									<div class="fw-bold">{{ event["name"] }}</div>
 									: {{ event["description"] }}
 								</div>
-								<span class="badge bg-primary rounded-pill p-3 fs-5">{{
-									new Date(event["time"]).toLocaleString("en-AU", {
-										year: "numeric",
-										day: "2-digit",
-										month: "2-digit",
-										hour: "2-digit",
-										minute: "2-digit",
-										hour12: true,
-									})
-								}}</span>
+								<span class="badge bg-primary rounded-pill p-3 fs-5">
+									{{
+										new Date(event["time"]).toLocaleString("en-AU", {
+											year: "numeric",
+											day: "2-digit",
+											month: "2-digit",
+											hour: "2-digit",
+											minute: "2-digit",
+											hour12: true,
+										})
+									}}
+								</span>
 							</li>
 						</ol>
 						<button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="cancelCalendar">Close</button>

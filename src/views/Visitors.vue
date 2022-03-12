@@ -5,7 +5,7 @@
 				<input type="text" class="form-control" placeholder="Name" v-model="searchName" />
 				<input type="text" class="form-control" placeholder="Number" v-model="searchNumber" />
 				<input type="text" class="form-control" placeholder="Email" v-model="searchEmail" />
-				<input type="text" class="form-control" placeholder="Ticket Number" v-model="searchTicket" />
+				<input type="text" class="form-control" placeholder="Visitor Type" v-model="searchtype" />
 			</div>
 		</div>
 	</div>
@@ -19,7 +19,7 @@
 			v-for="visitor in [...visitors].filter(
 				(vis) =>
 					vis.name.toLowerCase().includes(searchName.toLowerCase()) &&
-					vis.ticketNumbers?.toLowerCase().includes(searchTicket.toLowerCase()) &&
+					vis.visitorType?.toLowerCase().includes(searchtype.toLowerCase()) &&
 					vis.number.includes(searchNumber) &&
 					vis.email.toLowerCase().includes(searchEmail.toLowerCase())
 			)"
@@ -51,7 +51,7 @@ export default {
 			searchName: "",
 			searchNumber: "",
 			searchEmail: "",
-			searchTicket: "",
+			searchtype: "",
 		})
 		let visitorsArray
 		fb.visitorsCollection

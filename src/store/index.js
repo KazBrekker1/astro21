@@ -89,7 +89,7 @@ export default createStore({
 				})
 				NProgress.done()
 				commit("setError", "")
-				commit("setSuccess", "Welcome !")
+				commit("setSuccess", "Welcome!")
 				// fetch user profile and set in state
 				dispatch("fetchUserProfile", user)
 			} catch (err) {
@@ -126,13 +126,13 @@ export default createStore({
 				email: volunteer.email,
 				team: volunteer.team,
 				number: volunteer.number,
-				present: false,
+				arrived: false,
 				userId: fb.auth.currentUser.uid,
 			})
 			commit(
 				"SET_VOLUNTEERS",
 				state.volunteers.sort((x, y) => {
-					return x.present - y.present
+					return x.arrived - y.arrived
 				})
 			)
 		},
@@ -151,15 +151,7 @@ export default createStore({
 		async addVisitor({ state, commit }, visitor) {
 			await fb.visitorsCollection.add({
 				createdOn: new Date(),
-				name: visitor.name,
-				email: visitor.email,
-				number: visitor.number,
-				p1D1: visitor.p1D1,
-				p2D1: visitor.p2D1,
-				p1D2: visitor.p1D2,
-				p2D2: visitor.p2D2,
-				ticketNumbers: "X00",
-				arrived: true,
+				...visitor,
 				userId: fb.auth.currentUser.uid,
 			})
 			commit(
@@ -183,14 +175,19 @@ export default createStore({
 				})
 			)
 		},
+		async visitorAttendedWorkshop({ state, commit }, workshopObj) {
+			await fb.visitorsCollection.doc(workshopObj.visitorId).update({
+				[workshopObj.workshop]: true,
+			})
+		},
 		async volunteerArrived({ state, commit }, volunteer) {
 			await fb.volunteersCollection.doc(volunteer.id).update({
-				present: !volunteer.present,
+				arrived: !volunteer.arrived,
 			})
 			commit(
 				"SET_VOLUNTEERS",
 				state.volunteers.sort((x, y) => {
-					return x.present - y.present
+					return x.arrived - y.arrived
 				})
 			)
 		},

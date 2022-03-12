@@ -4,7 +4,7 @@
 			<h5 class="card-title">{{ visitorInfo["name"] }}</h5>
 			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["email"] }}</p>
 			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["number"] }}</p>
-			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["ticketNumbers"] || 'Null' }}</p>
+			<p class="card-text bg-light text-dark rounded-2 shadow-lg p-2">{{ visitorInfo["visitorType"] || 'Null' }}</p>
 		</div>
 		<ul class="list-group m-2"></ul>
 		<div class="card-footer p-2 shadow-sm">
@@ -21,7 +21,7 @@
 				class="btn btn-info"
 				type="button"
 				data-bs-toggle="modal"
-				:data-bs-target="`#${visitorInfo.id}_modal`"
+				:data-bs-target="`#ArAS${visitorInfo.id}_modal`"
 			>Workshops</button>
 			<button type="button" class="btn btn-danger" @click="removeVisitor">Delete</button>
 		</div>

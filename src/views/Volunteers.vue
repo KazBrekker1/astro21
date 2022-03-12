@@ -13,7 +13,7 @@
 			<button class="btn btn-primary p-3" @click="downloadVolunteersData">Download</button>
 		</div>
 		<VolunteerForm v-if="state.formVisible" @exitForm="toggleForm" />
-		<Volunteer
+		<div
 			class="mx-auto"
 			v-for="volunteer in [...volunteers].filter(
 				(vol) =>
@@ -21,8 +21,9 @@
 					vol.team.toLowerCase().includes(searchTeam.toLowerCase())
 			)"
 			:key="volunteer['id']"
-			:volunteerInfo="volunteer"
-		/>
+		>
+			<Volunteer :volunteerInfo="volunteer" />
+		</div>
 	</div>
 </template>
 

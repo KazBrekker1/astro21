@@ -13,17 +13,12 @@
 			<li class="list-group-item list-group-item-dark p-1 pb-0 m-1">
 				<select class="bg-transparent border-0 w-100 h5" v-model="team" required>
 					<option value disabled>Select Your Team</option>
-					<option value="Venue">Venue Team</option>
-					<option value="Sponsors">Sponsors Team</option>
-					<option value="Workshops">Workshops Team</option>
 					<option value="Logistics">Logistics Team</option>
 					<option value="Backstage">Backstage Team</option>
 					<option value="Technology">Technology Team</option>
-					<option value="Translation">Translation Team</option>
 					<option value="Registration">Registration Team</option>
-					<option value="Human Resources">Human Resources Team</option>
+					<option value="Human Resources">Human Resources Team (التنفيذية)</option>
 					<option value="Media and Design">Media and Design Team</option>
-					<option value="Public Relations">Public Relations Team</option>
 				</select>
 			</li>
 			<li class="list-group-item list-group-item-dark p-1 pb-0 m-1">
@@ -49,6 +44,7 @@ export default {
 		const store = useStore()
 		const volunteerState = reactive({
 			name: "",
+			email: "",
 			team: "",
 			number: "",
 		})

@@ -11,10 +11,10 @@
 			<button
 				type="button"
 				class="btn"
-				v-bind:class="{ 'btn-warning': !volunteerInfo['present'], 'btn-success': volunteerInfo['present'] }"
+				v-bind:class="{ 'btn-warning': !volunteerInfo['arrived'], 'btn-success': volunteerInfo['arrived'] }"
 				@click="toggleCheckin"
 			>
-				<span v-if="volunteerInfo['present']">Present</span>
+				<span v-if="volunteerInfo['arrived']">Arrived</span>
 				<span v-else>Not Here</span>
 			</button>
 			<button type="button" class="btn btn-danger" @click="removeVolunteer">Delete</button>
