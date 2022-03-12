@@ -40,6 +40,17 @@
                             @click="toggleWorkshopAttending(visitorInfo.id, 'w3')"
                         />
                     </li>
+                    <li class="list-group-item list-group-item-info fs-5 p-3 mb-2 rounded shadow">
+                        Workshop 4:
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="flexSwitchCheckChecked"
+                            :checked="visitorInfo.w4"
+                            :disabled="visitorInfo.w4"
+                            @click="toggleWorkshopAttending(visitorInfo.id, 'w4')"
+                        />
+                    </li>
                 </div>
             </div>
         </div>

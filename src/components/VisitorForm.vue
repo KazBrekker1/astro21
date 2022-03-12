@@ -53,6 +53,7 @@ export default {
 			w1: false,
 			w2: false,
 			w3: false,
+			w4: false,
 		})
 		const submitVisitor = () => {
 			store.dispatch("addVisitor", {
@@ -64,6 +65,7 @@ export default {
 				w1: false,
 				w2: false,
 				w3: false,
+				w4: false,
 			})
 			cancelForm()
 		}

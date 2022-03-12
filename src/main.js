@@ -9,7 +9,7 @@ let app
 auth.onAuthStateChanged((user) => {
 	if (!app) {
 		app = createApp(App).use(store).use(router).mount("#app")
-		document.title = "AstroCon 21"
+		document.title = "ArAS 2022"
 	}
 	if (user) {
 		store.dispatch("fetchUserProfile", user)
