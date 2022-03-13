@@ -6,7 +6,23 @@
 			class="btn btn-outline-warning text-warning fw-bold m-1 px-3"
 			style="pointer-events: none"
 		>
-			<span>Arrived: {{ visitors.filter((v) => v.arrived).length }}</span>
+			<span>
+				Arrived
+				<br />
+				Visitors: {{ visitors.filter((v) => v.arrived).length }}
+			</span>
+		</div>
+		<div
+			id="arrived-volunteers"
+			v-if="userProfile.name"
+			class="btn btn-outline-info text-info fw-bold m-1 px-3"
+			style="pointer-events: none"
+		>
+			<span>
+				Arrived
+				<br />
+				Volunteers: {{ volunteers.filter((v) => v.arrived).length }}
+			</span>
 		</div>
 		<div id="links" v-if="userProfile.name" class="m-auto">
 			<router-link class="mx-2" to="/visitors">Visitors</router-link>
@@ -43,6 +59,7 @@ export default {
 	computed: {
 		...mapState(["userProfile"]),
 		...mapState(["visitors"]),
+		...mapState(["volunteers"]),
 		...mapState(["error"]),
 		...mapState(["success"]),
 	},
