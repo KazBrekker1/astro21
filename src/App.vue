@@ -106,7 +106,7 @@ body {
 		display: grid;
 		gap: 0.1rem;
 		justify-content: space-around;
-		grid-template-areas: "links arrived" "links logout";
+		grid-template-areas: "links arrived arrived-v" "links logout .";
 		#arrived {
 			grid-area: arrived;
 		}

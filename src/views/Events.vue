@@ -1,6 +1,5 @@
 <template>
 	<div class="events">
-		<Event v-for="event in events" :key="event['id']" :eventInfo="event" />
 		<EventForm v-if="state.formVisible" @exitForm="toggleForm" />
 		<EventsCalendar v-if="state.calendarVisible" @exitCalendar="toggleCalendar" />
 		<div v-if="!state.formVisible && !state.calendarVisible" class="addNew">
@@ -8,6 +7,7 @@
 			<button class="btn btn-primary p-3" @click="downloadEventsData">Download</button>
 			<button class="btn btn-warning p-3" @click="toggleCalendar">Show Events</button>
 		</div>
+		<Event v-for="event in events" :key="event['id']" :eventInfo="event" />
 	</div>
 </template>
 
