@@ -49,6 +49,7 @@ export default {
 		let volunteersArray
 		fb.volunteersCollection
 			.where("userId", "==", fb.auth.currentUser.uid)
+			.orderBy("arrived", "desc")
 			.onSnapshot((snapshot) => {
 				volunteersArray = []
 				snapshot.forEach((doc) => {

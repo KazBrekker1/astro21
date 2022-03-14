@@ -56,6 +56,7 @@ export default {
 		let visitorsArray
 		fb.visitorsCollection
 			.where("userId", "==", fb.auth.currentUser.uid)
+			.orderBy("arrived", "desc")
 			.onSnapshot((snapshot) => {
 				visitorsArray = []
 				snapshot.forEach((doc) => {

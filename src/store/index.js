@@ -129,24 +129,12 @@ export default createStore({
 				arrived: false,
 				userId: fb.auth.currentUser.uid,
 			})
-			commit(
-				"SET_VOLUNTEERS",
-				state.volunteers.sort((x, y) => {
-					return x.arrived - y.arrived
-				})
-			)
 		},
 		async removeVolunteer({ }, volunteerId) {
 			await fb.volunteersCollection.doc(volunteerId).delete()
 		},
 		setVisitors({ state, commit }, visitors) {
 			commit("SET_VISITORS", visitors)
-			commit(
-				"SET_VISITORS",
-				state.visitors.sort((x, y) => {
-					return x.arrived - y.arrived
-				})
-			)
 		},
 		async addVisitor({ state, commit }, visitor) {
 			await fb.visitorsCollection.add({
@@ -154,12 +142,6 @@ export default createStore({
 				...visitor,
 				userId: fb.auth.currentUser.uid,
 			})
-			commit(
-				"SET_VISITORS",
-				state.visitors.sort((x, y) => {
-					return x.arrived - y.arrived
-				})
-			)
 		},
 		async removeVisitor({ }, visitorId) {
 			await fb.visitorsCollection.doc(visitorId).delete()
@@ -168,12 +150,6 @@ export default createStore({
 			await fb.visitorsCollection.doc(visitor.id).update({
 				arrived: !visitor.arrived,
 			})
-			commit(
-				"SET_VISITORS",
-				state.visitors.sort((x, y) => {
-					return x.arrived - y.arrived
-				})
-			)
 		},
 		async visitorAttendedWorkshop({ state, commit }, workshopObj) {
 			await fb.visitorsCollection.doc(workshopObj.visitorId).update({
@@ -184,12 +160,6 @@ export default createStore({
 			await fb.volunteersCollection.doc(volunteer.id).update({
 				arrived: !volunteer.arrived,
 			})
-			commit(
-				"SET_VOLUNTEERS",
-				state.volunteers.sort((x, y) => {
-					return x.arrived - y.arrived
-				})
-			)
 		},
 	},
 })
