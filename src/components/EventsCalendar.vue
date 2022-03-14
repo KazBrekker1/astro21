@@ -20,16 +20,17 @@
 						<ol class="list-group p-3">
 							<li
 								v-for="event in [...events].sort((a, b) => {
-									return new Date(b.time) - new Date(a.time)
+									return new Date(a.time) - new Date(b.time)
 								})"
 								:key="event['id']"
-								class="list-group-item list-group-item-dark d-flex justify-content-between align-items-start m-3 p-3 fs-5"
+								class="list-group-item list-group-item-dark d-flex flex-column m-3 p-3 fs-5"
 							>
-								<div class="m-auto d-flex">
+								<div class="m-auto w-75 flex-column">
 									<div class="fw-bold">{{ event["name"] }}</div>
-									: {{ event["description"] }}
+									{{ event["description"] }}
 								</div>
-								<span class="badge bg-primary rounded-pill p-3 fs-5">
+								<br />
+								<span class="badge bg-primary rounded-pill p-3 fs-6">
 									{{
 										new Date(event["time"]).toLocaleString("en-AU", {
 											year: "numeric",
